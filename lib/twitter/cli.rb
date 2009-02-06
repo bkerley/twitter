@@ -310,6 +310,19 @@ Main {
     end
   end
   
+  mode 'direct' do
+    description 'Allows you to view messages directed at you'
+    
+    def run
+      do_work do
+        options, since = {}, Configuration["directs_since"]
+        options[:since] = since_id if !since_id.nil?
+        collection = base.direct_messages(options)
+        say collection.inspect
+      end
+    end
+  end
+  
   mode 'clear_config' do
     def run
       do_work do
