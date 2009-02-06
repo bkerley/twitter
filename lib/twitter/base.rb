@@ -18,6 +18,13 @@ module Twitter
       @proxy_port = options[:proxy_port]
     end
     
+    # Returns an array of your friends timeline and direct messages sorted by time
+    def merged_timeline
+      tl = timeline
+      dm = direct_messages
+      (tl+dm).sort{|a,b|a.created_at <=> b.created_at}
+    end
+    
     # Returns an array of statuses for a timeline; Defaults to your friends timeline.
     def timeline(which=:friends, options={})
       raise UnknownTimeline unless [:friends, :public, :user].include?(which)
