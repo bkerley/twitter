@@ -21,7 +21,7 @@ module Twitter
     # Returns an array of statuses for a timeline; Defaults to your friends timeline.
     def timeline(which=:friends, options={})
       raise UnknownTimeline unless [:friends, :public, :user].include?(which)
-      auth = which.to_s.include?('public') ? false : true
+      auth = which != :public
       statuses(call("#{which}_timeline", :auth => auth, :since => options[:since], :args => parse_options(options)))
     end
     
